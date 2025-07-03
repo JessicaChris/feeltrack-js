@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login - FeelTrack</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="https://emojiapi.dev/api/v1/sparkles/64.png" />
+</head>
+<body>
+  <div class="login-container">
+    <h2>🔐 Login</h2>
+    <input type="email" id="login-email" placeholder="Email" />
+    <input type="password" id="login-password" placeholder="Password" />
+    <button id="login-btn">Login</button>
+    <p>New here? <a href="signup.html">Sign up here</a></p>
+  </div>
+
+  <script type="module">
+    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+    const supabase = createClient(
+      "https://eymjqphyzdxpbnaotwdn.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5bWpxcGh5emR4cGJuYW90d2RuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE0NDcyOTEsImV4cCI6MjA2NzAyMzI5MX0.aO4lzlFKybisPq4pR0EaO4GMfr3ho1GRPlkd0jKZVuA"
+    );
+
+    document.getElementById("login-btn").addEventListener("click", async () => {
+      const email = document.getElementById("login-email").value.trim();
+      const password = document.getElementById("login-password").value.trim();
+
+      if (!email || !password) {
+        alert("Please enter both email and password.");
+        return;
+      }
+
+      const { data: user, error } = await supabase
+        .from("users")
+        .select("*")
+        .eq("email", email)
+        .maybeSingle();
+
+      if (error || !user) {
+        alert("Login failed: Email not found.");
+        return;
+      }
+
+      if (user.password !== password) {
+        alert("Login failed: Incorrect password.");
+        return;
+      }
+
+      localStorage.setItem("feeltrack_user", JSON.stringify(user));
+      alert(`Welcome back, ${user.full_name || user.username || "user"}!`);
+      window.location.href = "home.html";
+    });
+  </script>
+</body>
+</html>

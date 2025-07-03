@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FeelTrack - Mood and Habit Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="icon" href="https://emojiapi.dev/api/v1/sparkles/64.png" />
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <div class="container">
+  <h1>✨ FeelTrack</h1>
+
+
+  <button id="dark-toggle">🌙 Toggle Dark Mode</button>
+
+ 
+  <div class="stat-wrapper">
+    <div class="stat-card">
+      <h3>🔥 Your Streak</h3>
+      <p id="streak-count">Loading...</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>💖 Most Common Mood</h3>
+      <p id="most-mood">Loading...</p>
+    </div>
+  </div>
+
+    <section id="mood-section">
+      <h2>How are you feeling today?</h2>
+      <div>
+        <button class="mood-btn">😄 Happy</button>
+        <button class="mood-btn">😐 Okay</button>
+        <button class="mood-btn">😢 Sad</button>
+        <button class="mood-btn">😡 Angry</button>
+      </div>
+    </section>
+
+    <section id="habit-section">
+      <h2>What habits did you complete today?</h2>
+      <div>
+        <label><input type="checkbox" class="habit-check" /> 💧 Drank Water</label><br />
+        <label><input type="checkbox" class="habit-check" /> 📚 Studied</label><br />
+        <label><input type="checkbox" class="habit-check" /> 🏃‍♀️ Worked Out</label><br />
+        <label><input type="checkbox" class="habit-check" /> 🛏 Slept Early</label>
+      </div>
+    </section>
+
+    <section id="journal-section">
+      <h2>📝 Write your thoughts...</h2>
+      <textarea id="journal" placeholder="Type something meaningful..."></textarea>
+    </section>
+
+    <button id="save-btn">Save Entry</button>
+
+    <section id="log-section">
+      <h2>🗓️ Your Daily Logs</h2>
+      <ul id="log-list"></ul>
+    </section>
+
+    <section id="mood-chart-section">
+      <h2>📊 Mood Distribution</h2>
+      <canvas id="mood-chart" width="300" height="300"></canvas>
+    </section>
+
+    <button id="logout-btn" style="margin-top: 2rem;">🚪 Logout</button>
+  </div>
+
+  <script type="module" src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/+esm"></script>
+  <script type="module" src="./script.js"></script>
+</body>
+</html>

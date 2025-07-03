@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up - FeelTrack</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="signup-container">
+    <h2>✨ Create Account</h2>
+
+    <input type="text" id="signup-name" placeholder="Full Name" />
+    <input type="text" id="signup-username" placeholder="Username" />
+    <input type="email" id="signup-email" placeholder="Email" />
+    <input type="password" id="signup-password" placeholder="Password" />
+    <input type="password" id="signup-confirm" placeholder="Confirm Password" />
+    <button id="signup-btn">Sign Up</button>
+  </div>
+
+  <script type="module">
+    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+    const supabase = createClient(
+      "https://eymjqphyzdxpbnaotwdn.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5bWpxcGh5emR4cGJuYW90d2RuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE0NDcyOTEsImV4cCI6MjA2NzAyMzI5MX0.aO4lzlFKybisPq4pR0EaO4GMfr3ho1GRPlkd0jKZVuA"
+    );
+
+    document.getElementById("signup-btn").addEventListener("click", async () => {
+      const name = document.getElementById("signup-name").value.trim();
+      const username = document.getElementById("signup-username").value.trim();
+      const email = document.getElementById("signup-email").value.trim();
+      const password = document.getElementById("signup-password").value;
+      const confirm = document.getElementById("signup-confirm").value;
+
+      if (!name || !username || !email || !password || !confirm) {
+        alert("Please fill in all fields!");
+        return;
+      }
+
+      if (password !== confirm) {
+        alert("Passwords do not match!");
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from("users")
+        .insert([
+          {
+            full_name: name,
+            username: username,
+            email: email,
+            password: password, 
+          },
+        ]);
+
+      if (error) {
+        alert("Signup error: " + error.message);
+        console.error("❌ SUPABASE ERROR:", error);
+        return;
+      }
+
+      alert("✅ Account created successfully!");
+      window.location.href = "login.html";
+    });
+  </script>
+</body>
+</html>
