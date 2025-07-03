@@ -20,7 +20,7 @@
 ## Technologies Used
 
 - HTML5
-- CSS3 (Responsive and Glassmorphism UI)
+- CSS3 (Responsive and UI)
 - JavaScript (Vanilla)
 - Chart.js (for data visualization)
 
